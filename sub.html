@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+<meta charset="UTF-8">
+
+<title>Web-Push Test</title>
+
+</head>
+
+<body>
+
+<div Align="center">
+</br>
+<div style="font-size:2rem">入稿画面</div>
+
+</br></br></br>
+
+
+
+<table id="inputform">
+	<tr>
+		<td>Service ID</td>
+		<td>ServiceID</td>
+	</tr>
+	<tr>
+		<td>Topic ID</td>
+		<td><div id="TopicID"></div></td>
+	</tr>
+	<tr>
+		<td>auIDにログイン中のみ　</td>
+		<td><input type="checkbox" name="example5" value="val1" checked="checked" style="width:20px;height:20px"/></td>
+	</tr>
+	<tr>
+		<td>メッセージ入力欄</td>
+		<td><textarea cols="50" rows="5" name="example3"></textarea></td>
+	</tr>
+	<tr>
+		<td>URL</td>
+		<td><input type="text" name="example1" value="URL入力欄" size="50" /></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="入稿" /> <input type="reset" value="キャンセル" /></td>
+	</tr>
+</table>
+
+
+
+<script>
+	s = location.search;
+	s = s.substring(7,s.length);
+	var tbl = document.getElementById("inputform");
+	tbl.rows[1].cells[1].innerText = s;
+</script>
+
+
+</div>
+<div id="id_loader" style="display:none"></div>
+</body>
+</html>
