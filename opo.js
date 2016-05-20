@@ -219,7 +219,7 @@ function unregisterGCM() {
 function getSubscriptionGCM(result) {
     navigator.serviceWorker.ready.then(function(registration) {
         registration.pushManager.getSubscription().then(function(subscription) {
-            if (subscription.endpoint.indexOf('https://android.googleapis.com/gcm/send') !== 0) {
+            if (subscription.endpoint.indexOf('https://android.googleapis.com/gcm/send') == 0) {
                 result(subscription.endpoint);
             } else {
                 console.log('Subscriptionの値がおかしい');
