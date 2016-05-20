@@ -1,3 +1,7 @@
+var API_KEY = window.GoogleSamples.Config.gcmAPIKey;
+var GCM_ENDPOINT = 'https://android.googleapis.com/gcm/send';
+
+
 /** Chromeのサポートバージョン */
 var CHROME_SUPPORT_VER = 42;
 /** Safariのサポートバージョン */
@@ -111,7 +115,7 @@ function getSubscription(result) {
 　
 　＜＜　注意　＞＞
 　ここより下の関数はライブラリ内部で使用する関数のため、
-　サービスサイト側から直接呼び出したときの動作保証はしない。
+　サービスサイト側から直接呼び出したときの動作保証はしない.
 　
 ***************************************************************/
 

@@ -38,9 +38,9 @@ function onLogin(btn) {
 function buyTopic(btn, topic) {
     if (btn.value == '購読') {
         btn.value = '解約';
+        registSubscription(registerResult);
     } else {
         btn.value = '購読';
-        registSubscription(registerResult);
     }
 }
 
