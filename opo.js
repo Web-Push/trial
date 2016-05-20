@@ -195,8 +195,8 @@ function registerGCM(result) {
 ***************************************************************/
 function unregisterGCM() {
     navigator.serviceWorker.ready.then(function(registration) {
-        registration.pushManager.getSubscription().then(function(pushSubscription) {
-            pushSubscription.unsubscribe().then(function() {
+        registration.pushManager.getSubscription().then(function(subscription) {
+            subscription.unsubscribe().then(function() {
                 console.log('unsubscribe 成功');
             }).catch(function(e) {
                 console.log('unsubscribe 失敗');
@@ -219,8 +219,8 @@ function unregisterGCM() {
 function getSubscriptionGCM(result) {
     navigator.serviceWorker.ready.then(function(registration) {
         registration.pushManager.getSubscription().then(function(subscription) {
-            if (pushSubscription.endpoint.indexOf('https://android.googleapis.com/gcm/send') !== 0) {
-                result(pushSubscription.endpoint);
+            if (subscription.endpoint.indexOf('https://android.googleapis.com/gcm/send') !== 0) {
+                result(subscription.endpoint);
             } else {
                 console.log('Subscriptionの値がおかしい');
                 result(null);
