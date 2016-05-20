@@ -41,6 +41,7 @@ function buyTopic(btn, topic) {
         registSubscription(registerResult);
     } else {
         btn.value = '購読';
+        unregistSubscription();
     }
 }
 

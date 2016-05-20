@@ -201,8 +201,13 @@ function unregisterGCM() {
             }).catch(function(e) {
                 console.log('unsubscribe 失敗');
             });
+
+            // ServiceWorker の解除
+            registration.unregister().then(onResult);
         }).catch(function(e) {
             console.log('Subscriptionが取得できない');
+            // ServiceWorker の解除
+            registration.unregister().then(onResult);
         });
     }).catch(function(e) {
         console.log('ServiceWorkerがReady状態ではない');
@@ -235,3 +240,8 @@ function getSubscriptionGCM(result) {
     });
 }
 
+
+// ServiceWorker の解除要求の結果（ログを出すだけ）
+function onResult(result){
+  console.log(result);
+}
