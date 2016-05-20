@@ -5,14 +5,15 @@ var SAFARI_SUPPORT_VER = 500;
 
 
 /***************************************************************
-　UAからWebPush対応ブラウザか否かの判定
+　OPOライブラリの初期化要求.
 　
-　戻り値：true 対応ブラウザ
-　　　　　false 非対応ブラウザ
+　UAからWebPush対応ブラウザか否かの判定する.
+　WebPush対応ブラウザの場合にはServiceWorkerの登録処理を行う.
+　WebPush非対応ブラウザの場合にはコールバック関数の引数にfalseを設定する.
 ***************************************************************/
-function initialize() {
+function initialize(result) {
 	// WebPush対応ブラウザか否かの返却値
-	var ret = false;
+	var isSupport = false;
 
 	// UAを取得
 	var agent = navigator.userAgent; 
@@ -23,65 +24,71 @@ function initialize() {
 		console.log('Mac');
 		if ((agent.search('Chrome') != -1) && (agent.search('OPR') == -1)) {
 			console.log('chrome');
-			ret = checkBrowserVersion('Chrome', CHROME_SUPPORT_VER);
+			isSupport = checkBrowserVersion('Chrome', CHROME_SUPPORT_VER);
 		} else if ((agent.search('Safari') != -1) && (agent.search('Chrome') == -1) && (agent.search('OPR') == -1) && (agent.search('Presto') == -1)) {
 			console.log('Safari');
-			ret = true;
+			isSupport = true;
 		}
 	} else if (agent.search('Windows') != -1) {
 		console.log('Windows');
 		if ((agent.search('Chrome') != -1) && (agent.search('OPR') == -1)) {
 			console.log('chrome');
-			ret = checkBrowserVersion('Chrome', CHROME_SUPPORT_VER);
+			isSupport = checkBrowserVersion('Chrome', CHROME_SUPPORT_VER);
 		}
 	} else if (agent.search('Android') != -1) {
 		console.log('Android');
 		if ((agent.search('Chrome') != -1) && (agent.search('OPR') == -1)) {
 			console.log('chrome');
-			ret = checkBrowserVersion('Chrome', CHROME_SUPPORT_VER);
+			isSupport = checkBrowserVersion('Chrome', CHROME_SUPPORT_VER);
 		}
 	} else {
 		console.log('対象外のブラウザです');
 	}
 
-	// サポート対象のブラウザであればServiceWorkerの登録を試みる
-	// ServiceWorkerの登録結果も込みで初期化処理の成否判定とする
-	if (ret == true) {
-		ret = registServiceWorker();
+	if (isSupport == true) {
+		// サポート対象のブラウザであればServiceWorkerの登録を試みる
+		// ServiceWorkerの登録結果も込みで初期化処理の成否判定とする
+		registServiceWorker(result);
+	} else {
+		// 非サポートのブラウザであれば引数にfalseを指定してコールバック関数を呼び出す
+		result(false);
 	}
-
-	return ret;	
 }
 
 
 /***************************************************************
-　WebPushの解除
+　Subscriptionの解除
 ***************************************************************/
-function unsubscribe() {
+function unregistSubscription() {
 }
 
 
 /***************************************************************
-　WebPushの有効化
+　Subscriptionの要求
 　
-　戻り値：SubscriptionID
+　Pushサーバーに対してSubscriptionの登録を行う.
+　登録に成功した場合にはコールバック関数の引数にSubscriptionIDを設定する.
+　登録に失敗した場合にはコールバック関数の引数にnullを設定する.
 ***************************************************************/
-function subscribe() {
+function registSubscription(result) {
 }
 
 
 /***************************************************************
-　WebPushが有効であればSubscriptionIDを返却する
+　Subscriptionの確認.
 　
-　戻り値：SubscriptionID
-　　　　　※unsubscribe済みの時にはnull
+　登録済みの場合にはコールバック関数の引数にSubscriptionIDを設定する.
+　未登録の場合にはコールバック関数の引数にnullを設定する.
 ***************************************************************/
-function isSubscription() {
+function getSubscription(result) {
 }
 
 
 /***************************************************************
-　UAからバージョンのみ抽出してサポートバージョンかを判定する
+　UAからバージョンのみ抽出してサポートバージョンかを判定する.
+　
+　true：WebPushをサポートしているブラウザ.
+　false：WebPushをサポートしていないブラウザ.
 ***************************************************************/
 function checkBrowserVersion(searchWord, supportVer) {
 	var ret = false;
@@ -100,22 +107,27 @@ function checkBrowserVersion(searchWord, supportVer) {
 
 
 /***************************************************************
-　ServiceWorkerの登録処理
+　ServiceWorkerの登録処理.
+　
+　ServiceWorkerの登録に成功した場合にはコールバック関数の引数にtrueを設定する.
+　ServiceWorkerの登録に失敗した場合にはコールバック関数の引数にfalseを設定する.
 ***************************************************************/
-function registServiceWorker() {
+function registServiceWorker(result) {
 	var ret = false;
 
 	// ServiceWorkerの登録
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker.register('./sw.js').then(function(registration) {
 			console.log('ServiceWorkerの登録に成功しました');
-			ret = true;
+			result(true);
+		}).catch(function(err) {
+			console.log('ServiceWorkerの登録に失敗しました');
+			result(false);
 		});
 	} else {
-		console.log('ServiceWorkerの登録に失敗しました');
+		console.log('ServiceWorkerのAPIが無効です');
+		result(false);
 	}
-
-	return ret;
 }
 
 

@@ -3,16 +3,9 @@ var isLogin = false;
 /** ページ読み込み処理 */
 window.addEventListener('load', function() {
 	// WebPush対応ブラウザかチェックする
-	var support = initialize();
+	initialize(initializeResult);
 
-	// WebPush対応ブラウザであればSWの登録等の処理をする
-	// WebPush非対応ブラウザであれば全てのボタンを無効にして操作できないようにする
-	if (support == true) {
-		document.getElementById('support').innerText = 'このブラウザはWebPushの対応ブラウザです';
-	} else {
-		document.getElementById('support').innerText = 'このブラウザはWebPushに対応していないためご利用できません';
-		unSupported();
-	}
+
 });
 
 /** 全てのボタンを無効にする */
@@ -48,4 +41,18 @@ function buyTopic(btn, topic) {
 		btn.value = '購読';
 	}
 }
+
+
+
+function initializeResult(result) {
+	// WebPush対応ブラウザであればSWの登録等の処理をする
+	// WebPush非対応ブラウザであれば全てのボタンを無効にして操作できないようにする
+	if (result == true) {
+		document.getElementById('support').innerText = 'このブラウザはWebPushの対応ブラウザです';
+	} else {
+		document.getElementById('support').innerText = 'このブラウザはWebPushに対応していないためご利用できません';
+		unSupported();
+	}
+}
+
 
