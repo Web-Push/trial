@@ -25,13 +25,7 @@ function unSupported() {
 
 /** ログイン・ログアウトボタンを押された時の処理 */
 function onLogin(btn) {
-    if (isLogin == false) {
-        btn.value ='ログアウト';
-        isLogin= true;
-    } else {
-        btn.value ='au IDにログイン';
-        isLogin= false;
-    }
+    getSubscription(isRegister);
 }
 
 /** 購読・解約ボタンを押された時の処理 */
