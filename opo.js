@@ -87,6 +87,7 @@ function unregistSubscription() {
 ***************************************************************/
 function registSubscription(result) {
     if (IS_SAFARI) {
+        registerAPNs(result);
     } else {
         registerGCM(result);
     }
@@ -243,5 +244,41 @@ function getSubscriptionGCM(result) {
 
 // ServiceWorker の解除要求の結果（ログを出すだけ）
 function onResult(result){
-  console.log(result);
+    console.log(result);
 }
+
+
+
+
+function registerAPNs(result) {
+    // Ensure that the user can receive Safari Push Notifications.
+    if ('safari' in window && 'pushNotification' in window.safari) {
+        var permissionData = window.safari.pushNotification.permission('io.github.web-push');
+        checkRemotePermission(permissionData);
+    }
+};
+ 
+var checkRemotePermission = function (permissionData) {
+    console.log('checkRemotePermission');
+    if (permissionData.permission === 'default') {
+        console.log('default');
+        // This is a new web service URL and its validity is unknown.
+        window.safari.pushNotification.requestPermission(
+            'https://web-push.github.io', // The web service URL.
+            'io.github.web-push',     // The Website Push ID.
+            {}, // Data that you choose to send to your server to help you identify the user.
+            checkRemotePermission         // The callback function.
+        );
+    }
+    else if (permissionData.permission === 'denied') {
+        // The user said no.
+        console.log('denied');
+    }
+    else if (permissionData.permission === 'granted') {
+        // The web service URL is a valid push provider, and the user said yes.
+        // permissionData.deviceToken is now available to use.
+        console.log('granted');
+    } else {
+        console.log('else');
+    }
+};
