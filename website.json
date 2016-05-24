@@ -4,5 +4,5 @@
     "allowedDomains": ["https://web-push.github.io"],
     "urlFormatString": "http://yahoo.co.jp",
     "authenticationToken": "",
-    "webServiceURL": "https://web-push.github.io/trial"
+    "webServiceURL": "https://web-push.github.io/"
 }
