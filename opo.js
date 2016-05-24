@@ -259,7 +259,7 @@ function onResult(result){
 function registerAPNs(result) {
     // Ensure that the user can receive Safari Push Notifications.
     if ('safari' in window && 'pushNotification' in window.safari) {
-        var permissionData = window.safari.pushNotification.permission('io.github.web-push');
+        var permissionData = window.safari.pushNotification.permission('web.io.github.web-push');
         checkRemotePermission(permissionData);
     }
 };
@@ -270,8 +270,8 @@ var checkRemotePermission = function (permissionData) {
         console.log('default');
         // This is a new web service URL and its validity is unknown.
         window.safari.pushNotification.requestPermission(
-            'https://web-push.github.io', // The web service URL.
-            'io.github.web-push',     // The Website Push ID.
+            'https://web-push.github.io/', // The web service URL.
+            'web.io.github.web-push',     // The Website Push ID.
             {}, // Data that you choose to send to your server to help you identify the user.
             checkRemotePermission         // The callback function.
         );
