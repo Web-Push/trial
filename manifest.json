@@ -11,4 +11,13 @@
   
   "//": "gcm_user_visible_only is only needed until Chrome 44 is in stable ",
   "gcm_user_visible_only": true
+
+
+  "website.json": "a99fe630e123e5995e1ab98400a01bb22f92d4dd",
+  "icon.iconset/icon_16x16.png": "e960bfa479757a11cc3da1991b89d1989709fb86",
+  "icon.iconset/icon_16x16@2x.png": "e960bfa479757a11cc3da1991b89d1989709fb86",
+  "icon.iconset/icon_32x32.png": "e960bfa479757a11cc3da1991b89d1989709fb86",
+  "icon.iconset/icon_32x32@2x.png": "e960bfa479757a11cc3da1991b89d1989709fb86",
+  "icon.iconset/icon_128x128.png": "e960bfa479757a11cc3da1991b89d1989709fb86",
+  "icon.iconset/icon_128x128@2x.png": "e960bfa479757a11cc3da1991b89d1989709fb86"
 }

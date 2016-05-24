@@ -3,6 +3,6 @@
     "websitePushID": "web.io.github.web-push",
     "allowedDomains": ["https://web-push.github.io"],
     "urlFormatString": "http://yahoo.co.jp",
-    "authenticationToken": "19f8d7a6e9fb8a7f6d9330dabe",
+    "authenticationToken": "",
     "webServiceURL": "https://web-push.github.io/trial"
 }
