@@ -54,6 +54,12 @@ function initialize(result) {
         console.log('対象外のブラウザです');
     }
 
+    // 表示しているブラウザがSafariの時にはSarviceWorkerの登録はしない
+    if (IS_SAFARI) {
+        result(true);
+        return;
+    }
+
     if (isSupport == true) {
         // サポート対象のブラウザであればServiceWorkerの登録を試みる
         // ServiceWorkerの登録結果も込みで初期化処理の成否判定とする
